@@ -1,10 +1,4 @@
-import { useState, useEffect } from "react";
-import { Dashboard } from "./components/Dashboard";
-import { ExpenseTracker } from "./components/ExpenseTracker";
-import { BankAccounts } from "./components/BankAccounts";
-import { IncomeManagement } from "./components/IncomeManagement";
-import { BudgetPlanner } from "./components/BudgetPlanner";
-import { InvestmentInsurance, SIP, Insurance } from "./components/InvestmentInsurance";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs";
 import { 
   LayoutDashboard, 
@@ -15,6 +9,15 @@ import {
   TrendingUp
 } from "lucide-react";
 import { storage } from "./utils/db";
+
+const Dashboard = lazy(() => import("./components/Dashboard").then(module => ({ default: module.Dashboard })));
+const ExpenseTracker = lazy(() => import("./components/ExpenseTracker").then(module => ({ default: module.ExpenseTracker })));
+const BankAccounts = lazy(() => import("./components/BankAccounts").then(module => ({ default: module.BankAccounts })));
+const IncomeManagement = lazy(() => import("./components/IncomeManagement").then(module => ({ default: module.IncomeManagement })));
+const BudgetPlanner = lazy(() => import("./components/BudgetPlanner").then(module => ({ default: module.BudgetPlanner })));
+const InvestmentInsurance = lazy(() => import("./components/InvestmentInsurance").then(module => ({ default: module.InvestmentInsurance })));
+const SIP = lazy(() => import("./components/InvestmentInsurance").then(module => ({ default: module.SIP })));
+const Insurance = lazy(() => import("./components/InvestmentInsurance").then(module => ({ default: module.Insurance })));
 
 export interface Transaction {
   id: string;
@@ -161,7 +164,8 @@ export default function App() {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Tabs defaultValue="dashboard" className="space-y-6">
+        <Suspense fallback={<div className="flex justify-center items-center h-64">Loading...</div>}>
+          <Tabs defaultValue="dashboard" className="space-y-6">
           <TabsList className="grid w-full grid-cols-6 lg:w-auto lg:inline-grid">
             <TabsTrigger value="dashboard" className="flex items-center gap-2">
               <LayoutDashboard className="w-4 h-4" />
@@ -240,7 +244,7 @@ export default function App() {
             />
           </TabsContent>
         </Tabs>
-      </main>
-    </div>
-  );
-}
+      </Suspense>
+    </main>
+  </div>
+);}

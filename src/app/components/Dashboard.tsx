@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+// import { Button } from "./ui/button";
 import { Transaction, BankAccount, Income, FixedExpense } from "../App";
 import { 
   TrendingUp, 
@@ -6,7 +7,8 @@ import {
   Wallet, 
   CreditCard, 
   Building2,
-  AlertCircle
+  AlertCircle,
+  // Download
 } from "lucide-react";
 import { 
   BarChart, 
@@ -23,6 +25,7 @@ import {
   LineChart,
   Line
 } from "recharts";
+// import jsPDF from 'jspdf';
 
 interface DashboardProps {
   transactions: Transaction[];
@@ -124,8 +127,64 @@ export function Dashboard({ transactions, bankAccounts, incomes, fixedExpenses }
 
   const COLORS = ['#3b82f6', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#06b6d4'];
 
+  // const generateMonthlyReport = () => {
+  //   const doc = new jsPDF();
+  //   doc.setFontSize(20);
+  //   doc.text(`Monthly Financial Report - ${new Date().toLocaleString('default', { month: 'long' })} ${currentYear}`, 20, 30);
+    
+  //   doc.setFontSize(12);
+  //   doc.text(`Total Income: ₹${totalIncome.toLocaleString('en-IN')}`, 20, 50);
+  //   doc.text(`Monthly Expenses: ₹${(monthlyExpenses + totalFixedExpenses).toLocaleString('en-IN')}`, 20, 60);
+  //   doc.text(`Savings Rate: ${savingsRate}%`, 20, 70);
+  //   doc.text(`Bank Balance: ₹${totalBankBalance.toLocaleString('en-IN')}`, 20, 80);
+  //   doc.text(`Credit Card Debt: ₹${totalCCDebt.toLocaleString('en-IN')}`, 20, 90);
+    
+  //   doc.text('Expenses by Category:', 20, 110);
+  //   let y = 120;
+  //   Object.entries(expensesByCategory).forEach(([category, amount]) => {
+  //     doc.text(`${category}: ₹${amount.toLocaleString('en-IN')}`, 30, y);
+  //     y += 10;
+  //   });
+    
+  //   doc.save(`monthly-report-${currentMonth + 1}-${currentYear}.pdf`);
+  // };
+
+  // const generateYearlyReport = () => {
+  //   const yearlyExpenses = transactions
+  //     .filter(t => {
+  //       const transDate = new Date(t.date);
+  //       return transDate.getFullYear() === currentYear && t.type !== 'income';
+  //     })
+  //     .reduce((sum, t) => sum + t.amount, 0);
+    
+  //   const yearlyIncome = totalIncome * 12; // Assuming monthly incomes
+    
+  //   const doc = new jsPDF();
+  //   doc.setFontSize(20);
+  //   doc.text(`Yearly Financial Report - ${currentYear}`, 20, 30);
+    
+  //   doc.setFontSize(12);
+  //   doc.text(`Total Yearly Income: ₹${yearlyIncome.toLocaleString('en-IN')}`, 20, 50);
+  //   doc.text(`Yearly Expenses: ₹${(yearlyExpenses + totalFixedExpenses * 12).toLocaleString('en-IN')}`, 20, 60);
+  //   doc.text(`Savings: ₹${(yearlyIncome - yearlyExpenses - totalFixedExpenses * 12).toLocaleString('en-IN')}`, 20, 70);
+    
+  //   doc.save(`yearly-report-${currentYear}.pdf`);
+  // };
+
   return (
     <div className="space-y-6">
+      {/* Report Download Buttons - Hidden for now */}
+      {/* <div className="flex gap-4">
+        <Button onClick={generateMonthlyReport} className="flex items-center gap-2">
+          <Download className="w-4 h-4" />
+          Download Monthly Report (PDF)
+        </Button>
+        <Button onClick={generateYearlyReport} className="flex items-center gap-2">
+          <Download className="w-4 h-4" />
+          Download Yearly Report (PDF)
+        </Button>
+      </div> */}
+      
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card>
